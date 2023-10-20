@@ -1,0 +1,5 @@
+../Src/HAL/dcm/dcm_prog.c:13:22:HDCM_init	4
+../Src/HAL/dcm/dcm_prog.c:60:22:HDCM_turnOff	2
+../Src/HAL/dcm/dcm_prog.c:76:22:HDCM_turnOn	4
+../Src/HAL/dcm/dcm_prog.c:108:22:HDCM_changeDirection	4
+../Src/HAL/dcm/dcm_prog.c:135:22:HDCM_controlSpeed	1

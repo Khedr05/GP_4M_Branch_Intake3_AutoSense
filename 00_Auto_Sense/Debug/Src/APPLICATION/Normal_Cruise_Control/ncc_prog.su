@@ -1,0 +1,2 @@
+../Src/APPLICATION/Normal_Cruise_Control/ncc_prog.c:12:6:ANCC_vSetNccSpeed	16	static
+../Src/APPLICATION/Normal_Cruise_Control/ncc_prog.c:19:6:ANCC_vStopNcc	16	static

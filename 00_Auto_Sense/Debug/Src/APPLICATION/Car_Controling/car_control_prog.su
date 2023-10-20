@@ -1,0 +1,4 @@
+../Src/APPLICATION/Car_Controling/car_control_prog.c:53:6:ACC_vSysInit	8	static
+../Src/APPLICATION/Car_Controling/car_control_prog.c:99:6:ACC_vSysMangment	120	static
+../Src/APPLICATION/Car_Controling/car_control_prog.c:188:20:ACC_uddtDetermineCarState	24	static
+../Src/APPLICATION/Car_Controling/car_control_prog.c:322:20:ACC_uddtFaultDetection	24	static
