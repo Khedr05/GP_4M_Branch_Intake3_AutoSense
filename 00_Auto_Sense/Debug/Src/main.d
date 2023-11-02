@@ -1,7 +1,7 @@
 Src/main.o: ../Src/main.c \
  ../Src/../Inc/APPLICATION/Body_Control_Module/bcm_interface.h \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../../COMMON/std_types.h \
- ../Inc/APPLICATION/Body_Control_Module/bcm_config.h \
+ ../Src/../Inc/APPLICATION/Body_Control_Module/bcm_config.h \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../../MCAL/rcc/rcc_interface.h \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../../MCAL/rcc/../../COMMON/bit_math.h \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../../MCAL/rcc/../../COMMON/std_types.h \
@@ -41,6 +41,7 @@ Src/main.o: ../Src/main.c \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../Normal_Cruise_Control/../../HAL/dcm/../../MCAL/tmr/tmr_interface.h \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../Normal_Cruise_Control/../../HAL/dcm/dcm_config.h \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../Normal_Cruise_Control/../../HAL/hc05/hc05_interface.h \
+ ../Src/../Inc/APPLICATION/Body_Control_Module/../Normal_Cruise_Control/ncc_config.h \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../Adaptive_Cruise_Control/acc_interface.h \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../Adaptive_Cruise_Control/../../HAL/dcm/dcm_interface.h \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../Adaptive_Cruise_Control/../../HAL/hc05/hc05_interface.h \
@@ -51,7 +52,7 @@ Src/main.o: ../Src/main.c \
  ../Src/../Inc/APPLICATION/Body_Control_Module/../Automatic_Emergency_Brake/aeb_config.h
 ../Src/../Inc/APPLICATION/Body_Control_Module/bcm_interface.h:
 ../Src/../Inc/APPLICATION/Body_Control_Module/../../COMMON/std_types.h:
-../Inc/APPLICATION/Body_Control_Module/bcm_config.h:
+../Src/../Inc/APPLICATION/Body_Control_Module/bcm_config.h:
 ../Src/../Inc/APPLICATION/Body_Control_Module/../../MCAL/rcc/rcc_interface.h:
 ../Src/../Inc/APPLICATION/Body_Control_Module/../../MCAL/rcc/../../COMMON/bit_math.h:
 ../Src/../Inc/APPLICATION/Body_Control_Module/../../MCAL/rcc/../../COMMON/std_types.h:
@@ -91,6 +92,7 @@ Src/main.o: ../Src/main.c \
 ../Src/../Inc/APPLICATION/Body_Control_Module/../Normal_Cruise_Control/../../HAL/dcm/../../MCAL/tmr/tmr_interface.h:
 ../Src/../Inc/APPLICATION/Body_Control_Module/../Normal_Cruise_Control/../../HAL/dcm/dcm_config.h:
 ../Src/../Inc/APPLICATION/Body_Control_Module/../Normal_Cruise_Control/../../HAL/hc05/hc05_interface.h:
+../Src/../Inc/APPLICATION/Body_Control_Module/../Normal_Cruise_Control/ncc_config.h:
 ../Src/../Inc/APPLICATION/Body_Control_Module/../Adaptive_Cruise_Control/acc_interface.h:
 ../Src/../Inc/APPLICATION/Body_Control_Module/../Adaptive_Cruise_Control/../../HAL/dcm/dcm_interface.h:
 ../Src/../Inc/APPLICATION/Body_Control_Module/../Adaptive_Cruise_Control/../../HAL/hc05/hc05_interface.h:

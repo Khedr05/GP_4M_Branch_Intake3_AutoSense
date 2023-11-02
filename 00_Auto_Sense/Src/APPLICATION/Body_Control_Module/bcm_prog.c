@@ -66,8 +66,26 @@ static EN_ABCM_faultCodes_t gl_uddtFaultCode ;
 /* global variable will store the states of car*/
 EN_ABCM_carStates_t gl_uddtCarCondation = ABCM_CAR_STANDBY;
 
+/* global variable will store the default maximum speed of car */
+static uint8_t gl_u8CarDefaultMaxSpeed = 100;
+
+/* global variable will store the default minimum speed of car */
+static uint8_t gl_u8CarDefaultMinSpeed = 0;
+
+/* global variable will store the speed limit of ACC */
+static uint8_t gl_u8AccSpeedLimit = 50;
+
+/* global variable will store the speed limit of NCC */
+static uint8_t gl_u8NccSpeedLimit = 50;
+
 /* global variable to store current LIDAR distance reading in it */
 static uint32_t gl_u32distance;
+
+/* flag to detect speed change is + */
+static uint8_t gl_u8IncSpeedFlag = 0;
+
+/* flag to detect speed change is - */
+static uint8_t gl_u8DecSpeedFlag = 0;
 
 /* flag to detect car states on or off */
 static uint8_t gl_u8CarIsOnFlag = 0;
@@ -243,7 +261,7 @@ void ABCM_vSysMangment(void)
 		/* Measure distance will removed */
 		gl_u32distance = measure_distance();
 
-		 /* Delay before next measurement */
+		/* Delay before next measurement */
 		delay_us(10000); // 500ms delay
 
 		/*local variable to store the zone of AEB in it*/
@@ -288,6 +306,10 @@ void ABCM_vSysMangment(void)
 		}
 		case ABCM_CAR_IDLE :
 		{
+			if(gl_u8AccIsOnFlag == 1)
+			{
+				gl_uddtCarCondation = ABCM_CAR_ACC_ACTIVE;
+			}
 			/* break the switch */
 			break;
 		}
@@ -300,36 +322,12 @@ void ABCM_vSysMangment(void)
 		}
 		case ABCM_CAR_ACC_SET :
 		{
-			/* local variable to store data sanded by UART */
-			uint8_t lo_u8StrDriverSpeed[10];
-			/* local variable will store driver wanted speed */
-			uint8_t lo_u8IntSpeed;
+			/* call function that will control the ACC and pass to it the motors strut and wanted speed */
+			AACC_vSetSpeedLimit(&wheelControl , gl_u8AccSpeedLimit);
 			/* transmit a massage for the driver with UART */
-			HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"Set Acc Speed Limit \r\n");
-			/* take the speed from driver with UART */
-			HHC05_uddtReceiveStringAsynchBlocking(MUART1_PERIPHERAL , lo_u8StrDriverSpeed);
-			/* Convert the speed from string to integer  by ATOI function is a built in function in string library */
-			lo_u8IntSpeed = atoi((char *)lo_u8StrDriverSpeed);
-			/* clear all of the array to avoid any data corruption in
-			 * next use by MEMSET function is a built in function */
-			memset(lo_u8StrDriverSpeed, '\0', sizeof(lo_u8StrDriverSpeed));
-			/* Check validation of the speed in the range from 0 to 100 */
-			if((lo_u8IntSpeed >= 1) && (lo_u8IntSpeed <= 100))
-			{
-				/* call function that will control the ACC and pass to it the motors strut and wanted speed */
-				AACC_vSetSpeedLimit(&wheelControl , lo_u8IntSpeed);
-				/* transmit a massage for the driver with UART */
-				HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"To Stop Acc In Any Time Press z \r\n");
-				/* assign car state as ABCM_CAR_ACC_ACTIVE */
-				gl_uddtCarCondation = ABCM_CAR_ACC_ACTIVE;
-			}
-			else
-			{
-				/* invalid range assign fault code in gl_uddtFaultCode (global variable) to notify driver */
-				gl_uddtFaultCode = ABCM_FAULT_SPEED_RANGE_INVALID;
-				/* assign car state as ABCM_CAR_GET_FAULT */
-				gl_uddtCarCondation = ABCM_CAR_GET_FAULT;
-			}
+			HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"To Stop Acc In Any Time Press z \r\n");
+			/* assign car state as ABCM_CAR_ACC_ACTIVE */
+			gl_uddtCarCondation = ABCM_CAR_ACC_ACTIVE;
 			/* break the switch */
 			break;
 		}
@@ -344,36 +342,12 @@ void ABCM_vSysMangment(void)
 		}
 		case ABCM_CAR_NCC_ACTIVE :
 		{
-			/* local variable to store data sanded by UART */
-			uint8_t lo_u8StrDriverSpeed[10];
-			/* local variable will store driver wanted speed */
-			uint8_t lo_u8IntSpeed;
+			/* call function that will control the NCC and pass to it the motors strut and wanted speed */
+			ANCC_vStartNcc(&wheelControl , gl_u8NccSpeedLimit);
 			/* transmit a massage for the driver with UART */
-			HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"Set Ncc Speed Limit \r\n");
-			/* take the speed from driver with UART */
-			HHC05_uddtReceiveStringAsynchBlocking(MUART1_PERIPHERAL , lo_u8StrDriverSpeed);
-			/* Convert the speed from string to integer  by ATOI function is a built in function in string library */
-			lo_u8IntSpeed = atoi((char *)lo_u8StrDriverSpeed);
-			/* clear all of the array to avoid any data corruption in
-			 * next use by MEMSET function is a built in function */
-			memset(lo_u8StrDriverSpeed, '\0', sizeof(lo_u8StrDriverSpeed));
-			/* Check validation of the speed in the range from 0 to 100 */
-			if((lo_u8IntSpeed >= 1) && (lo_u8IntSpeed <= 100))
-			{
-				/* call function that will control the NCC and pass to it the motors strut and wanted speed */
-				ANCC_vSetNccSpeed(&wheelControl , lo_u8IntSpeed);
-				/* transmit a massage for the driver with UART */
-				HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"To Stop Ncc In Any Time Press k \r\n");
-				/* assign car state as ABCM_CAR_RECVINIG */
-				gl_uddtCarCondation = ABCM_CAR_IDLE;
-			}
-			else
-			{
-				/* invalid range assign fault code in gl_uddtFaultCode (global variable) to notify driver */
-				gl_uddtFaultCode = ABCM_FAULT_SPEED_RANGE_INVALID;
-				/* assign car state as ABCM_CAR_GET_FAULT */
-				gl_uddtCarCondation = ABCM_CAR_GET_FAULT;
-			}
+			HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"To Stop Ncc In Any Time Press k \r\n");
+			/* assign car state as ABCM_CAR_RECVINIG */
+			gl_uddtCarCondation = ABCM_CAR_IDLE;
 			/* break the switch */
 			break;
 		}
@@ -397,6 +371,79 @@ void ABCM_vSysMangment(void)
 			/* assign car state as ABCM_CAR_ON */
 			gl_uddtCarCondation = ABCM_CAR_ON;
 			/* break the switch */
+			break;
+		}
+		case ABCM_CHANGE_SPEED_LIMIT :
+		{
+			/* check if the NCC is on */
+			if(gl_u8NccIsOnFlag == 1)
+			{
+				if(((gl_u8NccSpeedLimit < gl_u8CarDefaultMaxSpeed) && (gl_u8IncSpeedFlag == 1)) ||
+						((gl_u8NccSpeedLimit > gl_u8CarDefaultMinSpeed) && (gl_u8DecSpeedFlag == 1)))
+				{
+					/* check if the change is INC or DEC*/
+					if(gl_u8IncSpeedFlag == 1)
+					{
+						/* call function that will change NCC speed limit and pass to it the action to take on the speed */
+						gl_u8NccSpeedLimit = ANCC_vChangeNccSpeedLimit('+');
+						/* clear the gl_u8IncSpeedFlag (global flag) to indicate all of the system that the speed is changed */
+						gl_u8IncSpeedFlag = 0;
+					}
+					else if(gl_u8DecSpeedFlag == 1)
+					{
+						/* call function that will change NCC speed limit and pass to it the action to take on the speed */
+						gl_u8NccSpeedLimit = ANCC_vChangeNccSpeedLimit('-');
+						/* clear the gl_u8DecSpeedFlag (global flag) to indicate all of the system that the speed is changed */
+						gl_u8DecSpeedFlag = 0;
+					}
+					else{/* Do Nothing */};
+					/* assign car state as ABCM_CAR_IDLE */
+					gl_uddtCarCondation = ABCM_CAR_IDLE;
+				}
+				else
+				{
+					gl_u8IncSpeedFlag = 0;
+					gl_u8DecSpeedFlag = 0;
+					/* invalid range assign fault code in gl_uddtFaultCode (global variable) to notify driver */
+					gl_uddtFaultCode = ABCM_FAULT_SPEED_RANGE_INVALID;
+					/* assign car state as ABCM_CAR_GET_FAULT */
+					gl_uddtCarCondation = ABCM_CAR_GET_FAULT;
+				}
+			}
+			else if(gl_u8AccIsOnFlag == 1)
+			{
+				if(((gl_u8AccSpeedLimit < gl_u8CarDefaultMaxSpeed) && (gl_u8IncSpeedFlag == 1)) ||
+						((gl_u8AccSpeedLimit > gl_u8CarDefaultMinSpeed) && (gl_u8DecSpeedFlag == 1)))
+				{
+					/* check if the change is INC or DEC*/
+					if(gl_u8IncSpeedFlag == 1)
+					{
+						/* call function that will change NCC speed limit and pass to it the action to take on the speed */
+						gl_u8AccSpeedLimit = AACC_vChangeAccSpeedLimit('+');
+						/* clear the gl_u8IncSpeedFlag (global flag) to indicate all of the system that the speed is changed */
+						gl_u8IncSpeedFlag = 0;
+					}
+					else if(gl_u8DecSpeedFlag == 1)
+					{
+						/* call function that will change NCC speed limit and pass to it the action to take on the speed */
+						gl_u8AccSpeedLimit = AACC_vChangeAccSpeedLimit('-');
+						/* clear the gl_u8DecSpeedFlag (global flag) to indicate all of the system that the speed is changed */
+						gl_u8DecSpeedFlag = 0;
+					}
+					else{/* Do Nothing */};
+					/* assign car state as ABCM_CAR_IDLE */
+					gl_uddtCarCondation = ABCM_CAR_IDLE;
+				}
+				else
+				{
+					gl_u8IncSpeedFlag = 0;
+					gl_u8DecSpeedFlag = 0;
+					/* invalid range assign fault code in gl_uddtFaultCode (global variable) to notify driver */
+					gl_uddtFaultCode = ABCM_FAULT_SPEED_RANGE_INVALID;
+					/* assign car state as ABCM_CAR_GET_FAULT */
+					gl_uddtCarCondation = ABCM_CAR_GET_FAULT;
+				}
+			}
 			break;
 		}
 		case ABCM_UPDATE_FIRMWARE :
@@ -712,6 +759,78 @@ EN_ABCM_carStates_t ABCM_uddtDetermineCarState(uint8_t copy_u8Action)
 		/* break the switch */
 		break;
 	}
+	case '+' : /* choice + : mean to increment speed */
+	case '-' : /* choice + : mean to decrement speed */
+	{
+		/* check if the car is on */
+		if(gl_u8CarIsOnFlag == 1)
+		{
+			/* check if the NCC is off */
+			if(gl_u8NccIsOnFlag == 0)
+			{
+				/* check if the ACC is off */
+				if(gl_u8AccIsOnFlag == 0)
+				{
+					/* ACC is off and NCC is off so assign fault code in gl_uddtFaultCode (global variable) to notify driver */
+					gl_uddtFaultCode = ABCM_FAULT_ACC_NOR_NCC_IS_WORKING;
+					/* return to ABCM_CAR_GET_FAULT state */
+					ret = ABCM_CAR_GET_FAULT;
+				}
+				else
+				{
+					/* ACC is on */
+					/* check change of speed is INC or DEC*/
+					if(copy_u8Action == '+')
+					{
+						/* change is INC */
+						/* set the gl_u8AccIsOnFlag (global flag) to indicate all of the system that the change is INC */
+						gl_u8IncSpeedFlag = 1;
+					}
+					else if(copy_u8Action == '-')
+					{
+						/* change is DEC */
+						/* set the gl_u8AccIsOnFlag (global flag) to indicate all of the system that the change is DEC */
+						gl_u8DecSpeedFlag = 1;
+					}
+					else{/* Do Nothing */};
+					/* return to ABCM_CHANGE_SPEED_LIMIT state */
+					ret = ABCM_CHANGE_SPEED_LIMIT;
+				}
+			}
+			else
+			{
+				/* NCC is on */
+				/* ACC is on */
+				/* check change of speed is INC or DEC*/
+				if(copy_u8Action == '+')
+				{
+					/* change is INC */
+					/* set the gl_u8AccIsOnFlag (global flag) to indicate all of the system that the change is INC */
+					gl_u8IncSpeedFlag = 1;
+				}
+				else if(copy_u8Action == '-')
+				{
+					/* change is DEC */
+					/* set the gl_u8AccIsOnFlag (global flag) to indicate all of the system that the change is DEC */
+					gl_u8DecSpeedFlag = 1;
+				}
+				else{/* Do Nothing */};
+				/* return to ABCM_CHANGE_SPEED_LIMIT state */
+				ret = ABCM_CHANGE_SPEED_LIMIT;
+			}
+		}
+		/* check if the car is off */
+		else if(gl_u8CarIsOnFlag == 0)
+		{
+			/* car is off so assign fault code in gl_uddtFaultCode (global variable) to notify driver */
+			gl_uddtFaultCode = ABCM_FAULT_CAR_IS_ALREADY_OFF;
+			/* return to ABCM_CAR_GET_FAULT state */
+			ret = ABCM_CAR_GET_FAULT;
+		}
+		else {/* DO Nothing */};
+		/* break the switch */
+		break;
+	}
 	default : /* default : mean that the input is unknown */
 	{
 		/* send the action to function that determine the fault & what to do */
@@ -803,8 +922,8 @@ EN_ABCM_carStates_t ABCM_uddtFaultDetection(EN_ABCM_faultCodes_t copy_uddtFaultC
 		/*check if the NCC is on*/
 		if(gl_u8NccIsOnFlag == 1)
 		{
-			/* return to ABCM_CAR_NCC_ACTIVE state */
-			ret = ABCM_CAR_NCC_ACTIVE;
+			/* return to ABCM_CAR_IDLE state */
+			ret = ABCM_CAR_IDLE;
 		}
 		/*check if the ACC is on*/
 		else if(gl_u8AccIsOnFlag == 1)
@@ -816,10 +935,19 @@ EN_ABCM_carStates_t ABCM_uddtFaultDetection(EN_ABCM_faultCodes_t copy_uddtFaultC
 		/* break the switch */
 		break;
 	}
+	case ABCM_FAULT_ACC_NOR_NCC_IS_WORKING : /* this code mean that driver want to change speed but ACC & NCC is not working */
+	{
+		/* transmit a massage for the driver with UART with fault code & short description about it*/
+		HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"Fault 8 : Can't Change Speed ACC & NCC Is Not Working \r\n");
+		/* return to ABCM_CAR_ABCM_CAR_STANDBY state */
+		ret = ABCM_CAR_IDLE;
+		/* break the switch */
+		break;
+	}
 	case ABCM_NO_FIRMWARE : /* this code mean that the driver want to get new update but their is no new update */
 	{
 		/* transmit a massage for the driver with UART with fault code & short description about it*/
-		HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"Fault 8 : No New Update For The Firmware On The Server \r\n");
+		HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"Fault 9 : No New Update For The Firmware On The Server \r\n");
 		/* return to ABCM_CAR_ABCM_CAR_STANDBY state */
 		ret = ABCM_CAR_STANDBY;
 		/* break the switch */

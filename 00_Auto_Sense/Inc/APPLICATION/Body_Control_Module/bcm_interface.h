@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../../COMMON/std_types.h"
-#include "APPLICATION/Body_Control_Module/bcm_config.h"
+#include "bcm_config.h"
 #include "../../MCAL/rcc/rcc_interface.h"
 #include "../../MCAL/gpio/gpio_interface.h"
 #include "../../MCAL/tmr/tmr_interface.h"

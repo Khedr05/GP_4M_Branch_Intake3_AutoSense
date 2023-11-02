@@ -12,8 +12,6 @@ static void (*MUSART1_CallBack)(void) = PTR_NULL;
 static void (*MUSART2_CallBack)(void) = PTR_NULL;
 static void (*MUSART6_CallBack)(void) = PTR_NULL;
 
-uint8_t gl_u8StringOfUartRet[20] = STR_NULL;
-
 EN_MUSART_systeamState_t MUSART_uddtInit(ST_MUART_RegistersMap_t *PS_USARTx , ST_MUSART_cfg_t const *PS_uddtUartCfg)
 {
 	EN_MUSART_systeamState_t ret = MUSART_NOK;
@@ -322,28 +320,6 @@ EN_MUSART_systeamState_t MUSART6_uddtSetCallBack( void (*ptr) (void) )
 	return ret;
 }
 
-
-EN_MUSART_systeamState_t MUSART_uddtReceiveStringSynchNonBlocking(ST_MUART_RegistersMap_t *PS_USARTx)
-{
-	EN_MUSART_systeamState_t ret = MUSART_NOK;
-
-	if(PS_USARTx != PTR_NULL)
-	{
-		uint8_t lo_Iterator = 0 , lo_u8DataCome ;
-		while( (lo_u8DataCome = PS_USARTx->MUSART_DR) != 13 )
-		{
-			gl_u8StringOfUartRet[ lo_Iterator ] = lo_u8DataCome ;
-			lo_Iterator++;
-		}
-		gl_u8StringOfUartRet[lo_Iterator] = STR_NULL;
-		ret = MUSART_OK;
-	}
-	else
-	{
-		ret = MUSART_PTR_NULL;
-	}
-	return ret;
-}
 
 void USART1_IRQHandler(void)
 {

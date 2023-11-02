@@ -22,7 +22,8 @@ Src/APPLICATION/Normal_Cruise_Control/ncc_prog.o: \
  ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/hc05/../../MCAL/usart/../../MCAL/gpio/gpio_interface.h \
  ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/hc05/../../MCAL/usart/usart_private.h \
  ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/hc05/../../MCAL/usart/usart_config.h \
- ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/hc05/hc05_config.h
+ ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/hc05/hc05_config.h \
+ ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/ncc_config.h
 ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/ncc_interface.h:
 ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/dcm/dcm_interface.h:
 ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/dcm/../../COMMON/std_types.h:
@@ -46,3 +47,4 @@ Src/APPLICATION/Normal_Cruise_Control/ncc_prog.o: \
 ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/hc05/../../MCAL/usart/usart_private.h:
 ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/hc05/../../MCAL/usart/usart_config.h:
 ../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/../../HAL/hc05/hc05_config.h:
+../Src/APPLICATION/Normal_Cruise_Control/../../../Inc/APPLICATION/Normal_Cruise_Control/ncc_config.h:
