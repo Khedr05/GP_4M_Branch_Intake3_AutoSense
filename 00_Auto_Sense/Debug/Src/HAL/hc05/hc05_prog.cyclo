@@ -7,3 +7,7 @@
 ../Src/HAL/hc05/hc05_prog.c:50:26:HHC05_uddtReceiveByteSynchNonBlocking	1
 ../Src/HAL/hc05/hc05_prog.c:56:26:HHC05_uddtReceiveStringSynchNonBlocking	1
 ../Src/HAL/hc05/hc05_prog.c:62:26:HHC05_uddtReceiveStringAsynchBlocking	1
+../Src/HAL/hc05/hc05_prog.c:69:26:HHC05_RxIntSetStatus	1
+../Src/HAL/hc05/hc05_prog.c:75:26:HHC05_uddtSetCallBackUart1	1
+../Src/HAL/hc05/hc05_prog.c:80:26:HHC05_uddtSetCallBackUart2	1
+../Src/HAL/hc05/hc05_prog.c:85:26:HHC05_uddtSetCallBackUart6	1

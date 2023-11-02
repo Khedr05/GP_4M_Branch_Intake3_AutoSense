@@ -21,7 +21,9 @@ RM := rm -rf
 -include Src/HAL/dcm/subdir.mk
 -include Src/APPLICATION/User_Dashboard_Interface/subdir.mk
 -include Src/APPLICATION/Normal_Cruise_Control/subdir.mk
--include Src/APPLICATION/Car_Controling/subdir.mk
+-include Src/APPLICATION/Body_Control_Module/subdir.mk
+-include Src/APPLICATION/Automatic_Emergency_Brake/subdir.mk
+-include Src/APPLICATION/Adaptive_Cruise_Control/subdir.mk
 -include Src/subdir.mk
 -include objects.mk
 

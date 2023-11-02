@@ -1,4 +1,4 @@
 ../Src/HAL/ultrasonic/ultrsonic_prog.c:12:6:delay_us	2
 ../Src/HAL/ultrasonic/ultrsonic_prog.c:21:6:ultra_init	1
-../Src/HAL/ultrasonic/ultrsonic_prog.c:29:6:send_pulse	1
-../Src/HAL/ultrasonic/ultrsonic_prog.c:36:10:measure_distance	3
+../Src/HAL/ultrasonic/ultrsonic_prog.c:32:6:send_pulse	1
+../Src/HAL/ultrasonic/ultrsonic_prog.c:39:10:measure_distance	3

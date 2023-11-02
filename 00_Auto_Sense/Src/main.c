@@ -7,22 +7,22 @@
 /*************************************************************************/
 
 
-#include "../Inc/APPLICATION/Car_Controling/car_control_interface.h"
+#include "../Inc/APPLICATION/Body_Control_Module/bcm_interface.h"
 
 
 /**
  * @fn void main(void)
- * @brief
+ * @brief : Entry point of the system
  *
- * @return
+ * @param  : void
+ * @return : void
  */
 
 
 
-void main(void) {
-
-	ACC_vSysInit();
-	ACC_vSysMangment();
-
+void main(void)
+{
+	ABCM_vSysInit();
+	ABCM_vSysMangment();
 }
 

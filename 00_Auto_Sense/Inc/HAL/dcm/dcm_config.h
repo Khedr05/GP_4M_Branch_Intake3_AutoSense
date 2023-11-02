@@ -37,9 +37,9 @@ typedef enum
 
 typedef struct
 {
-	EN_MGPIO_portOptions_t   DCM_5vPort;
+	ST_MGPIOx_RegistersMap_t  *DCM_5vPort;
 	EN_MGPIO_pinOptions_t    DCM_5vPin;
-	EN_MGPIO_portOptions_t   DCM_gndPort;
+	ST_MGPIOx_RegistersMap_t  *DCM_gndPort;
 	EN_MGPIO_pinOptions_t    DCM_gndPin;
 	EN_DCM_states_t  	 DCM_intialState;
     EN_DCM_direction_t   DCM_defaultDirection;

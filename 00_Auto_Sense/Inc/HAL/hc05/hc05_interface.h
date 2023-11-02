@@ -21,5 +21,11 @@ EN_HHC05_systeamState_t  HHC05_uddtReadDataRegister(ST_MUART_RegistersMap_t *PS_
 EN_HHC05_systeamState_t  HHC05_uddtReceiveByteSynchNonBlocking(ST_MUART_RegistersMap_t *PS_USARTx , uint8_t *copy_u8ByteToReceive);
 EN_HHC05_systeamState_t  HHC05_uddtReceiveStringSynchNonBlocking(ST_MUART_RegistersMap_t *PS_USARTx , uint8_t *copy_u8ByteToReceive);
 EN_HHC05_systeamState_t  HHC05_uddtReceiveStringAsynchBlocking(ST_MUART_RegistersMap_t *PS_USARTx , uint8_t *copy_u8ByteToReceive);
+EN_HHC05_systeamState_t  HHC05_RxIntSetStatus(ST_MUART_RegistersMap_t *PS_USARTx, uint8_t copy_u8Status);
+EN_HHC05_systeamState_t  HHC05_uddtSetCallBackUart1( void (*ptr) (void) );
+EN_HHC05_systeamState_t  HHC05_uddtSetCallBackUart2( void (*ptr) (void) );
+EN_HHC05_systeamState_t  HHC05_uddtSetCallBackUart6( void (*ptr) (void) );
+
+
 
 #endif /* HAL_HC05_HC05_INTERFACE_H_ */

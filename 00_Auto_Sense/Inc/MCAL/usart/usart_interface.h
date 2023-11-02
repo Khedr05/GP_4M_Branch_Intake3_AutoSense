@@ -22,10 +22,14 @@ EN_MUSART_systeamState_t MUSART_uddtTransmitByte(ST_MUART_RegistersMap_t *PS_USA
 EN_MUSART_systeamState_t MUSART_uddtTransmitString(ST_MUART_RegistersMap_t *PS_USARTx , uint8_t *copy_u8StringToSend);
 EN_MUSART_systeamState_t MUSART_uddtReadDataRegister(ST_MUART_RegistersMap_t *PS_USARTx , uint8_t *copy_u8ByteToReceive);
 EN_MUSART_systeamState_t MUSART_uddtClearFlags(ST_MUART_RegistersMap_t *PS_USARTx);
-EN_MUSART_systeamState_t MUSART_RxIntSetStatus(ST_MUART_RegistersMap_t *PS_USARTx, uint8_t copy_u8Status);
 EN_MUSART_systeamState_t MUSART_uddtReceiveByteSynchNonBlocking(ST_MUART_RegistersMap_t *PS_USARTx , uint8_t *copy_u8ByteToReceive);
 EN_MUSART_systeamState_t MUSART_uddtReceiveStringAsynchBlocking (ST_MUART_RegistersMap_t *PS_USARTx , uint8_t *copy_u8ByteToReceive);
 EN_MUSART_systeamState_t MUSART_uddtReceiveStringSynchNonBlocking (ST_MUART_RegistersMap_t *PS_USARTx , uint8_t *copy_u8ByteToReceive);
+
+EN_MUSART_systeamState_t MUSART_RxIntSetStatus(ST_MUART_RegistersMap_t *PS_USARTx, uint8_t copy_u8Status);
+EN_MUSART_systeamState_t MUSART1_uddtSetCallBack( void (*ptr) (void) );
+EN_MUSART_systeamState_t MUSART2_uddtSetCallBack( void (*ptr) (void) );
+EN_MUSART_systeamState_t MUSART6_uddtSetCallBack( void (*ptr) (void) );
 
 
 #endif /* MCAL_USART_USART_INTERFACE_H_ */

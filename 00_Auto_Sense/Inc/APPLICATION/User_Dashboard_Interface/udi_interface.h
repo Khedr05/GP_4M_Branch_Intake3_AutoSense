@@ -11,7 +11,7 @@
 #include "../../HAL/hc05/hc05_interface.h"
 
 
-void AUDI_vInitInterface(ST_MUART_RegistersMap_t *PS_USARTx , ST_MUSART_cfg_t const *PS_uddtUartCfg);
+void AUDI_vInitInterface(ST_MUART_RegistersMap_t *PS_USARTx , ST_MUSART_cfg_t const *PS_uddtUartCfg , void (*ptr)(void));
 void AUDI_vStandByDashboard(ST_MUART_RegistersMap_t *PS_USARTx);
 
 void AUDI_vOnDashboard(ST_MUART_RegistersMap_t *PS_USARTx);

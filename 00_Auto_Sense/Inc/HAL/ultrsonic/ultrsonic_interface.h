@@ -8,12 +8,11 @@
 #ifndef HAL_ULTRSONIC_ULTRSONIC_INTERFACE_H_
 #define HAL_ULTRSONIC_ULTRSONIC_INTERFACE_H_
 
+#include "../Inc/COMMON/std_types.h"
 
-
-#include "../../MCAL/gpio/gpio_interface.h"
-#include "../../COMMON/std_types.h"
 // Memory mapped addresses for RCC and GPIOA registers
-
+#define RCC_BASE_ADDRESS 0x40023800
+#define RCC_AHB1ENR_OFFSET 0x30
 
 #define GPIOA_BASE_ADDRESS 0x40020000
 #define GPIOA_MODER_OFFSET 0x00
@@ -21,22 +20,16 @@
 #define GPIOA_IDR_OFFSET 0x10
 
 // Define uint32_t type
-//typedef unsigned int uint32_t;
 
 // Pin definitions
-#define TRIGGER_PIN  MGPIO_PIN9
-#define ECHO_PIN 	 MGPIO_PIN10
-
-#define TRIGGER_PORT	MGPIO_PORTA
-#define ECHO_PORT	    MGPIO_PORTA
+#define TRIGGER_PIN (1 << 9)
+#define ECHO_PIN (1 << 10)
 
 // Function prototypes
 void delay_us(uint32_t microseconds);
 void send_pulse(void);
 uint32_t measure_distance(void);
 void ultra_init(void);
-
-
 
 
 #endif /* HAL_ULTRSONIC_ULTRSONIC_INTERFACE_H_ */

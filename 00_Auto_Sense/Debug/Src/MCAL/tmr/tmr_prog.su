@@ -3,10 +3,10 @@
 ../Src/MCAL/tmr/tmr_prog.c:47:8:MTMR_vSetTimerPrescaler	16	static
 ../Src/MCAL/tmr/tmr_prog.c:72:8:MTMR_vEnableTimerOPM	16	static
 ../Src/MCAL/tmr/tmr_prog.c:85:8:MTMR_vSetTimerChannelOutput	16	static
-../Src/MCAL/tmr/tmr_prog.c:110:8:MTMR_vSetTimerCMPVal	16	static
-../Src/MCAL/tmr/tmr_prog.c:138:8:MTMR_vSetTimerARR	16	static
-../Src/MCAL/tmr/tmr_prog.c:156:8:MTMR_vClearTimerCount	16	static
-../Src/MCAL/tmr/tmr_prog.c:174:8:MTMR_vEnableTimerICUInt	16	static
-../Src/MCAL/tmr/tmr_prog.c:191:8:MTMR_vSetTimerChannelInput	16	static
-../Src/MCAL/tmr/tmr_prog.c:251:10:MTMR_vReadCaptureVal	24	static
-../Src/MCAL/tmr/tmr_prog.c:298:8:MTMR3_vCaptureCompareInit	8	static
+../Src/MCAL/tmr/tmr_prog.c:131:8:MTMR_vSetTimerCMPVal	16	static
+../Src/MCAL/tmr/tmr_prog.c:181:8:MTMR_vSetTimerARR	16	static
+../Src/MCAL/tmr/tmr_prog.c:199:8:MTMR_vClearTimerCount	16	static
+../Src/MCAL/tmr/tmr_prog.c:217:8:MTMR_vEnableTimerICUInt	16	static
+../Src/MCAL/tmr/tmr_prog.c:234:8:MTMR_vSetTimerChannelInput	16	static
+../Src/MCAL/tmr/tmr_prog.c:294:10:MTMR_vReadCaptureVal	24	static
+../Src/MCAL/tmr/tmr_prog.c:374:6:HLIDAR_controlSpeed	32	static

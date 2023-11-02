@@ -66,6 +66,28 @@ EN_HHC05_systeamState_t  HHC05_uddtReceiveStringAsynchBlocking(ST_MUART_Register
 }
 
 
+EN_HHC05_systeamState_t  HHC05_RxIntSetStatus(ST_MUART_RegistersMap_t *PS_USARTx, uint8_t copy_u8Status)
+{
+	EN_HHC05_systeamState_t ret = MUSART_RxIntSetStatus(PS_USARTx,copy_u8Status);
+	return ret;
+}
+
+EN_HHC05_systeamState_t  HHC05_uddtSetCallBackUart1( void (*ptr) (void) )
+{
+	EN_HHC05_systeamState_t ret = MUSART1_uddtSetCallBack(ptr);
+	return ret;
+}
+EN_HHC05_systeamState_t  HHC05_uddtSetCallBackUart2( void (*ptr) (void) )
+{
+	EN_HHC05_systeamState_t ret = MUSART2_uddtSetCallBack(ptr);
+	return ret;
+}
+EN_HHC05_systeamState_t  HHC05_uddtSetCallBackUart6( void (*ptr) (void) )
+{
+	EN_HHC05_systeamState_t ret = MUSART6_uddtSetCallBack(ptr);
+	return ret;
+}
+
 
 
 

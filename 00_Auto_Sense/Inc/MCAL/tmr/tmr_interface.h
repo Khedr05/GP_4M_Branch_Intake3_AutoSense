@@ -29,6 +29,7 @@ void 	 MTMR_vSetTimerCMPVal(EN_MTMR_number_t copy_uddtTMRNumber, EN_MTMR_channel
 uint32_t MTMR_vReadCaptureVal(EN_MTMR_number_t copy_uddtTMRNumber, EN_MTMR_channel_t copy_uddtChannelNumber);
 void 	 MTMR3_vCaptureCompareInit(void);
 
+void HLIDAR_controlSpeed(uint8_t copy_u8Speed);
 
 
 #endif /* MCAL_TMR_TMR_INTERFACE_H_ */

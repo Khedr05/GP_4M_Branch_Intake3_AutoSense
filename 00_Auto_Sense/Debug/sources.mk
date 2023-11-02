@@ -23,7 +23,9 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-Src/APPLICATION/Car_Controling \
+Src/APPLICATION/Adaptive_Cruise_Control \
+Src/APPLICATION/Automatic_Emergency_Brake \
+Src/APPLICATION/Body_Control_Module \
 Src/APPLICATION/Normal_Cruise_Control \
 Src/APPLICATION/User_Dashboard_Interface \
 Src/HAL/dcm \

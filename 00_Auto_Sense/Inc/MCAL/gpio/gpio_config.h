@@ -14,21 +14,12 @@
 
 typedef enum
 {
-	MGPIO_OK = 0,
-	MGPIO_NOK,
-	MGPIO_INVALID_PARAMTER
+	MGPIO_NOK = 0,
+	MGPIO_OK,
+	MGPIO_INVALID_PARAMTER,
+	MGPIO_PTR_NULL
 }EN_MGPIO_systemState_t;
 
-
-typedef enum
-{
-	MGPIO_PORTA = 0,
-	MGPIO_PORTB,
-	MGPIO_PORTC,
-	MGPIO_PORTD,
-	MGPIO_PORTE,
-	MGPIO_PORTH,
-}EN_MGPIO_portOptions_t;
 
 typedef enum
 {
@@ -119,5 +110,26 @@ typedef enum
 	MGPIO_PIN_SET
 }EN_MGPIO_setResetOptions_t;
 
+
+typedef struct
+{
+	ST_MGPIOx_RegistersMap_t  *PS_GPIOx;
+	EN_MGPIO_pinOptions_t copy_uddtPinNum;
+	EN_MGPIO_pinModeOptions_t copy_uddtPinMode;
+	EN_MGPIO_outputResistorOptions_t copy_uddtOutputResistor;
+	EN_MGPIO_outputSpeedOptions_t copy_uddtOutputSpeed;
+	EN_MGPIO_pinLogicOptions_t copy_uddtPtrRetOfPinLogic;
+	EN_MGPIO_pushPullOptions_t copy_uddtPullState;
+}ST_MGPIO_pinCfg_t;
+
+typedef struct
+{
+	ST_MGPIOx_RegistersMap_t  *PS_GPIOx;
+	EN_MGPIO_pinOptions_t copy_uddtPinNum;
+	EN_MGPIO_altfnOptions_t Copy_uddtAltFun;
+	EN_MGPIO_outputResistorOptions_t copy_uddtOutputResistor;
+	EN_MGPIO_outputSpeedOptions_t copy_uddtOutputSpeed;
+	EN_MGPIO_pushPullOptions_t copy_uddtPullState;
+}ST_MGPIO_altPinCfg_t;
 
 #endif /* MCAL_GPIO_GPIO_CONFIG_H_ */

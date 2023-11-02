@@ -7,7 +7,7 @@
 /*************************************************************************/
 
 #include "../../../Inc/MCAL/tmr/tmr_interface.h"
-
+#include "../../../Inc/MCAL/gpio/gpio_interface.h"
 
 void 	 MTMR_vStartTimer(EN_MTMR_number_t copy_uddtTMRNumber)
 {
@@ -86,23 +86,44 @@ void 	 MTMR_vSetTimerChannelOutput(EN_MTMR_number_t copy_uddtTMRNumber, EN_MTMR_
 {
 	switch(copy_uddtTMRNumber)
 	{
-	case MTMR2:
-		switch(copy_uddtChannelNumber)
+		case MTMR2:
+			switch(copy_uddtChannelNumber)
+			{
+				case MTMR_CH1:
+				{
+					CLR_BITS(MTMR2_PERIPHERAL -> MTMRx_CCMR1, 0x00000073);
+					MTMR2_PERIPHERAL -> MTMRx_CCMR1 |= (copy_uddtTimerMode << OC1M_SHIFT);
+					SET_BIT(MTMR2_PERIPHERAL -> MTMRx_CCER, CC1EN_BIT);
+					break;
+				}
+				case MTMR_CH2:	break;
+				case MTMR_CH3:
+				{
+					CLR_BITS(MTMR2_PERIPHERAL -> MTMRx_CCMR2, 0x00000073);
+					MTMR2_PERIPHERAL -> MTMRx_CCMR2 |= (copy_uddtTimerMode << OC1M_SHIFT);
+					SET_BIT(MTMR2_PERIPHERAL -> MTMRx_CCER, 8);
+					break;
+				}
+				case MTMR_CH4:	break;
+			}
+			break;
+		case MTMR3 :
 		{
-		case MTMR_CH1:
-			CLR_BITS(MTMR2_PERIPHERAL -> MTMRx_CCMR1, 0x00000073);
-			MTMR2_PERIPHERAL -> MTMRx_CCMR1 |= (copy_uddtTimerMode << OC1M_SHIFT);
-			SET_BIT(MTMR2_PERIPHERAL -> MTMRx_CCER, CC1EN_BIT);
-			break;
-		case MTMR_CH2:	break;
-		case MTMR_CH3:
-			CLR_BITS(MTMR2_PERIPHERAL -> MTMRx_CCMR2, 0x00000073);
-			MTMR2_PERIPHERAL -> MTMRx_CCMR2 |= (copy_uddtTimerMode << OC1M_SHIFT);
-			SET_BIT(MTMR2_PERIPHERAL -> MTMRx_CCER, 8);
-			break;
-		case MTMR_CH4:	break;
+			switch(copy_uddtChannelNumber)
+			{
+				case MTMR_CH1:
+				{
+					CLR_BITS(MTMR3_PERIPHERAL -> MTMRx_CCMR1, 0x00000073);
+					MTMR3_PERIPHERAL -> MTMRx_CCMR1 |= (copy_uddtTimerMode << OC1M_SHIFT);
+					SET_BIT(MTMR3_PERIPHERAL -> MTMRx_CCER, CC1EN_BIT);
+					break;
+				}
+				case MTMR_CH2: break;
+				case MTMR_CH3: break;
+				case MTMR_CH4: break;
+			}
 		}
-		break;
+
 		default:                               break;
 	}
 }
@@ -111,23 +132,45 @@ void 	 MTMR_vSetTimerCMPVal(EN_MTMR_number_t copy_uddtTMRNumber, EN_MTMR_channel
 {
 	switch(copy_uddtTMRNumber)
 	{
-	case MTMR2:
-		switch(copy_uddtChannelNumber)
+		case MTMR2:
 		{
-		case MTMR_CH1:
-			MTMR2_PERIPHERAL -> MTMRx_CCR1 = copy_u32CmpValue;
-			break;
-		case MTMR_CH2:
-			MTMR2_PERIPHERAL -> MTMRx_CCR2 = copy_u32CmpValue;
-			break;
-		case MTMR_CH3:
-			MTMR2_PERIPHERAL -> MTMRx_CCR3 = copy_u32CmpValue;
-			break;
-		case MTMR_CH4:
-			MTMR2_PERIPHERAL -> MTMRx_CCR4 = copy_u32CmpValue;
+				switch(copy_uddtChannelNumber)
+				{
+				case MTMR_CH1:
+					MTMR2_PERIPHERAL -> MTMRx_CCR1 = copy_u32CmpValue;
+					break;
+				case MTMR_CH2:
+					MTMR2_PERIPHERAL -> MTMRx_CCR2 = copy_u32CmpValue;
+					break;
+				case MTMR_CH3:
+					MTMR2_PERIPHERAL -> MTMRx_CCR3 = copy_u32CmpValue;
+					break;
+				case MTMR_CH4:
+					MTMR2_PERIPHERAL -> MTMRx_CCR4 = copy_u32CmpValue;
+					break;
+				}
 			break;
 		}
-		break;
+		case MTMR3:
+		{
+				switch(copy_uddtChannelNumber)
+				{
+				case MTMR_CH1:
+					MTMR3_PERIPHERAL -> MTMRx_CCR1 = copy_u32CmpValue;
+					break;
+				case MTMR_CH2:
+					MTMR3_PERIPHERAL -> MTMRx_CCR2 = copy_u32CmpValue;
+					break;
+				case MTMR_CH3:
+					MTMR3_PERIPHERAL -> MTMRx_CCR3 = copy_u32CmpValue;
+					break;
+				case MTMR_CH4:
+					MTMR3_PERIPHERAL -> MTMRx_CCR4 = copy_u32CmpValue;
+					break;
+				}
+			break;
+		}
+
 		default:                               break;
 	}
 }
@@ -295,33 +338,62 @@ uint32_t MTMR_vReadCaptureVal(EN_MTMR_number_t copy_uddtTMRNumber, EN_MTMR_chann
 	return lo_u32RetOfReading;
 }
 
-void 	 MTMR3_vCaptureCompareInit(void)
+//void 	 MTMR3_vCaptureCompareInit(void)
+//{
+//	/*DIER Register*/
+//
+//	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_DIER , 1);	// Capture/Compare interrupt enable
+//
+//	/*CCMR1 Register*/
+//
+//	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 0);	// configure timer3 ch1 as input
+//	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 1);
+//
+//	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 2);	// configure timer3 ch1 to capture at every edge detected
+//	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 3);
+//
+//
+//	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 6);
+//	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 7);
+//
+//	/*CCER Register*/
+//
+//	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_CCER , 0);	// Capture Enabled
+//
+//
+//	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_CCER , 1);	// Capture/Compare channel captures on both edges (rising & falling)
+//	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_CCER , 3);
+//
+//	MTMR_vSetTimerPrescaler(MTMR3,72);
+//
+//	MTMR3_PERIPHERAL -> MTMRx_ARR = 65535;
+//}
+
+
+
+void HLIDAR_controlSpeed(uint8_t copy_u8Speed)
 {
-	/*DIER Register*/
+	ST_MGPIO_altPinCfg_t lo_altPwmPinA6 = {MGPIOA_PERIPHERAL,MGPIO_PIN6,MGPIO_ALTFN_2,
+			MGPIO_OUTPUT_RESISTOR_PUSH_PULL,MGPIO_OUTPUT_SPEED_MEDIUM,MGPIO_PULL_FLOATING};
+	MGPIO_uddtInitAltPin(&lo_altPwmPinA6);
 
-	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_DIER , 1);	// Capture/Compare interrupt enable
+	/* speed init */
+	MTMR_vSetTimerPrescaler(MTMR3, 64);
+	MTMR_vSetTimerARR(MTMR3, 10000 - 1);
+	MTMR_vSetTimerChannelOutput(MTMR3, MTMR_MODE_PWM_MODE1, MTMR_CH1);
 
-	/*CCMR1 Register*/
-
-	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 0);	// configure timer3 ch1 as input
-	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 1);
-
-	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 2);	// configure timer3 ch1 to capture at every edge detected
-	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 3);
-
-
-	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 6);
-	CLR_BIT(MTMR3_PERIPHERAL -> MTMRx_CCMR1 , 7);
-
-	/*CCER Register*/
-
-	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_CCER , 0);	// Capture Enabled
-
-
-	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_CCER , 1);	// Capture/Compare channel captures on both edges (rising & falling)
-	SET_BIT(MTMR3_PERIPHERAL -> MTMRx_CCER , 3);
-
-	MTMR_vSetTimerPrescaler(MTMR3,72);
-
-	MTMR3_PERIPHERAL -> MTMRx_ARR = 65535;
+	uint32_t counter = 100 * copy_u8Speed;
+	MTMR_vSetTimerCMPVal(MTMR3, MTMR_CH1, counter - 1);
+	MTMR_vStartTimer(MTMR3);
 }
+
+
+
+
+
+
+
+
+
+
+
