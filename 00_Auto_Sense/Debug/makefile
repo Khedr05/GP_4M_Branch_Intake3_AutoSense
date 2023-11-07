@@ -17,10 +17,13 @@ RM := rm -rf
 -include Src/MCAL/nvic/subdir.mk
 -include Src/MCAL/gpio/subdir.mk
 -include Src/HAL/ultrasonic/subdir.mk
+-include Src/HAL/plidar/subdir.mk
+-include Src/HAL/ir/subdir.mk
 -include Src/HAL/hc05/subdir.mk
 -include Src/HAL/dcm/subdir.mk
 -include Src/APPLICATION/User_Dashboard_Interface/subdir.mk
 -include Src/APPLICATION/Normal_Cruise_Control/subdir.mk
+-include Src/APPLICATION/Lane_Keep_Assistant/subdir.mk
 -include Src/APPLICATION/Body_Control_Module/subdir.mk
 -include Src/APPLICATION/Automatic_Emergency_Brake/subdir.mk
 -include Src/APPLICATION/Adaptive_Cruise_Control/subdir.mk

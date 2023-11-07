@@ -18,6 +18,7 @@ void AACC_vSetSpeedLimit(ST_DCM_cfg_t *dcmCfg ,uint8_t copy_u8SpeedLimit)
 	HDCM_turnOn(dcmCfg); /* turn dc motor on to start moving the car */
 	HHC05_uddtTransmitString(MUART1_PERIPHERAL,(uint8_t *)"ACC Speed Limit Is Setting \r\n");
 	gl_u8MotorFlag = 1;
+	gl_u8LastSpeed = 0;
 }
 
 void AACC_vControlingCar(ST_DCM_cfg_t *dcmCfg ,uint32_t copy_u32CurrentDistance)
@@ -90,7 +91,7 @@ void AACC_vControlingCar(ST_DCM_cfg_t *dcmCfg ,uint32_t copy_u32CurrentDistance)
 	}
 	else if((copy_u32CurrentDistance < BLUE_RANGE) && (copy_u32CurrentDistance > RED_RANGE))
 	{
-		if(gl_u8LastSpeed > 0)
+		if(gl_u8LastSpeed > 10)
 		{
 			gl_u8LastSpeed -=10;
 			HDCM_controlSpeed(gl_u8LastSpeed); /* set the speed of NCC taken from driver */
@@ -103,7 +104,8 @@ void AACC_vControlingCar(ST_DCM_cfg_t *dcmCfg ,uint32_t copy_u32CurrentDistance)
 		{
 			HDCM_turnOff(dcmCfg);
 			gl_u8MotorFlag = 1;
-			HDCM_controlSpeed(1);
+			//HDCM_controlSpeed(1);
+			MTMR_vStopTimer(MTMR2);
 		}
 
 	}
@@ -120,7 +122,8 @@ void AACC_vStopAcc(ST_DCM_cfg_t *dcmCfg )
 	if(dcmCfg != PTR_NULL)
 	{
 		HDCM_turnOff(dcmCfg);
-		HDCM_controlSpeed(1);
+		//HDCM_controlSpeed(1);
+		MTMR_vStopTimer(MTMR2);
 	}
 	else
 	{

@@ -19,8 +19,6 @@ EN_MRCC_systemState_t MRCC_Init(void);
 
 EN_MRCC_systemState_t MRCC_enablePeripheral(EN_MRCC_busOptions_t busSelection,EN_MRCC_peripheralOptions_t PeripheralNumber);
 EN_MRCC_systemState_t MRCC_disablePeripheral(EN_MRCC_busOptions_t busSelection,EN_MRCC_peripheralOptions_t PeripheralNumber);
-
-
-
+void HAL_DeInit(void);
 
 #endif /* MCAL_RCC_RCC_INTERFACE_H_ */

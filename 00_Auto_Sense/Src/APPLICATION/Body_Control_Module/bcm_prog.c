@@ -49,7 +49,7 @@ ST_MUSART_cfg_t gl_uddtUartOfESP =
 		.copy_uddtStopBitSelection = MUSART_ONE_STOP_BIT,
 		.copy_uddtParityControl = MUSART_PARITY_DISABLED,
 		.copy_uddtParitySelection = MUSART_EVEN_PARITY,
-		.copy_uddtBuadRateOption = MUSART_BUAD_RATE_9600_bps,
+		.copy_uddtBuadRateOption = MUSART_BUAD_RATE_19200_bps,
 		.copy_uddtSamplingModeOption = MUSART_SAMPLING_BY_16,
 		.copy_uddtTransferDirection = MUSART_TX_RX,
 		.copy_uddtUartClockInit.clockOutput = 0,
@@ -79,7 +79,7 @@ static uint8_t gl_u8AccSpeedLimit = 50;
 static uint8_t gl_u8NccSpeedLimit = 50;
 
 /* global variable to store current LIDAR distance reading in it */
-static uint32_t gl_u32distance;
+static uint32_t gl_u32distance = 60;
 
 /* flag to detect speed change is + */
 static uint8_t gl_u8IncSpeedFlag = 0;
@@ -150,7 +150,7 @@ void HC05_Callback(void)
 void ABCM_vSysInit(void)
 {
 	/*############################ configure clock to all of the system #################################*/
-
+	HAL_DeInit();
 	/* enable RCC of micro_controller  */
 	MRCC_Init();
 	/* enable clock to PORTA  */
@@ -163,12 +163,17 @@ void ABCM_vSysInit(void)
 	MRCC_enablePeripheral(MRCC_APB2_BUS, MRCC_USART1_PERIPHERAL);
 	/* enable clock to USART2 */
 	MRCC_enablePeripheral(MRCC_APB1_BUS, MRCC_USART2_PERIPHERAL);
+	/* enable clock to USART6 */
+	MRCC_enablePeripheral(MRCC_APB2_BUS, MRCC_USART6_PERIPHERAL);
 	/* enable clock to TIMER3 */
 	MRCC_enablePeripheral(MRCC_APB1_BUS, MRCC_TIM3_PERIPHERAL);
-	/*will remove*/
-	HLIDAR_controlSpeed(50);
 
 	/*################################################### Configure NVIC groups ##################################################*/
+	MGPIO_uddtSetPinMode(MGPIOA_PERIPHERAL, MGPIO_PIN0, MGPIO_MODE_OUTPUT);
+	MGPIO_uddtSetPinVal(MGPIOA_PERIPHERAL, MGPIO_PIN0, MGPIO_LOGIC_LOW);
+
+
+	//MGPIO_uddtSetPinVal(MGPIOA_PERIPHERAL, MGPIO_PIN0, MGPIO_LOGIC_LOW);
 
 	/* set NVIC groups to 16 priority group & no sub priority   */
 	MNVIC_SetInterruptGroup(GP_16_SP_00);
@@ -453,8 +458,8 @@ void ABCM_vSysMangment(void)
 			/* clear gl_u8NewFirmwareFlag */
 			gl_u8NewFirmwareFlag = 0;
 			/* Set the pointer to the end of vector table (startup code of boot-loader) */
-			MUSART_uddtTransmitString(MUART2_PERIPHERAL,(uint8_t *)'q');
-			AddressToCall = (BL_Call_t)0x08000004;
+			AddressToCall = *(BL_Call_t*)0x8004004;
+			MUSART_uddtTransmitByte(MUART2_PERIPHERAL,'q');
 			AddressToCall();
 			/* break the switch */
 			break;

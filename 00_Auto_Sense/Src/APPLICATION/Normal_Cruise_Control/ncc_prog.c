@@ -20,7 +20,8 @@ void ANCC_vStartNcc(ST_DCM_cfg_t *dcmCfg , uint8_t copy_u8Speed)
 
 void ANCC_vStopNcc(ST_DCM_cfg_t *dcmCfg)
 {
-	HDCM_controlSpeed(STOP_SPEED); /* set the speed of NCC to stop speed to turn off pwm*/
+	MTMR_vStopTimer(MTMR2);
+	//HDCM_controlSpeed(STOP_SPEED); /* set the speed of NCC to stop speed to turn off pwm*/
 	HDCM_turnOff(dcmCfg); /* turn off dc motors to stop car */
 }
 

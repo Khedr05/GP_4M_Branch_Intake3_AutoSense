@@ -26,10 +26,13 @@ SUBDIRS := \
 Src/APPLICATION/Adaptive_Cruise_Control \
 Src/APPLICATION/Automatic_Emergency_Brake \
 Src/APPLICATION/Body_Control_Module \
+Src/APPLICATION/Lane_Keep_Assistant \
 Src/APPLICATION/Normal_Cruise_Control \
 Src/APPLICATION/User_Dashboard_Interface \
 Src/HAL/dcm \
 Src/HAL/hc05 \
+Src/HAL/ir \
+Src/HAL/plidar \
 Src/HAL/ultrasonic \
 Src/MCAL/gpio \
 Src/MCAL/nvic \

@@ -371,22 +371,6 @@ uint32_t MTMR_vReadCaptureVal(EN_MTMR_number_t copy_uddtTMRNumber, EN_MTMR_chann
 
 
 
-void HLIDAR_controlSpeed(uint8_t copy_u8Speed)
-{
-	ST_MGPIO_altPinCfg_t lo_altPwmPinA6 = {MGPIOA_PERIPHERAL,MGPIO_PIN6,MGPIO_ALTFN_2,
-			MGPIO_OUTPUT_RESISTOR_PUSH_PULL,MGPIO_OUTPUT_SPEED_MEDIUM,MGPIO_PULL_FLOATING};
-	MGPIO_uddtInitAltPin(&lo_altPwmPinA6);
-
-	/* speed init */
-	MTMR_vSetTimerPrescaler(MTMR3, 64);
-	MTMR_vSetTimerARR(MTMR3, 10000 - 1);
-	MTMR_vSetTimerChannelOutput(MTMR3, MTMR_MODE_PWM_MODE1, MTMR_CH1);
-
-	uint32_t counter = 100 * copy_u8Speed;
-	MTMR_vSetTimerCMPVal(MTMR3, MTMR_CH1, counter - 1);
-	MTMR_vStartTimer(MTMR3);
-}
-
 
 
 

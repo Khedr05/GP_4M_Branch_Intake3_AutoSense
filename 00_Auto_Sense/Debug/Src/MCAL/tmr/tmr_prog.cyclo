@@ -9,4 +9,3 @@
 ../Src/MCAL/tmr/tmr_prog.c:217:8:MTMR_vEnableTimerICUInt	5
 ../Src/MCAL/tmr/tmr_prog.c:234:8:MTMR_vSetTimerChannelInput	9
 ../Src/MCAL/tmr/tmr_prog.c:294:10:MTMR_vReadCaptureVal	13
-../Src/MCAL/tmr/tmr_prog.c:374:6:HLIDAR_controlSpeed	1
