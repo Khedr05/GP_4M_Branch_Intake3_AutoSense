@@ -1,7 +1,0 @@
-../Src/APPLICATION/Body_Control_Module/bcm_prog.c:114:6:ESP_Callback	2
-../Src/APPLICATION/Body_Control_Module/bcm_prog.c:133:6:HC05_Callback	1
-../Src/APPLICATION/Body_Control_Module/bcm_prog.c:150:6:ABCM_vSysInit	1
-../Src/APPLICATION/Body_Control_Module/bcm_prog.c:259:6:ABCM_vSysMangment	28
-../Src/APPLICATION/Body_Control_Module/bcm_prog.c:480:21:ABCM_uddtDetermineCarState	46
-../Src/APPLICATION/Body_Control_Module/bcm_prog.c:860:21:ABCM_uddtFaultDetection	14
-../Src/APPLICATION/Body_Control_Module/bcm_prog.c:995:6:ABCM_vThreadMode	2

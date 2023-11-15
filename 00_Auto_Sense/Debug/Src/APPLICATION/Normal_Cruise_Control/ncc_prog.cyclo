@@ -1,3 +1,0 @@
-../Src/APPLICATION/Normal_Cruise_Control/ncc_prog.c:13:6:ANCC_vStartNcc	1
-../Src/APPLICATION/Normal_Cruise_Control/ncc_prog.c:21:6:ANCC_vStopNcc	1
-../Src/APPLICATION/Normal_Cruise_Control/ncc_prog.c:28:9:ANCC_vChangeNccSpeedLimit	3

@@ -1,4 +1,0 @@
-../Src/HAL/ultrasonic/ultrsonic_prog.c:12:6:delay_us	16	static,ignoring_inline_asm
-../Src/HAL/ultrasonic/ultrsonic_prog.c:21:6:ultra_init	4	static
-../Src/HAL/ultrasonic/ultrsonic_prog.c:32:6:send_pulse	8	static
-../Src/HAL/ultrasonic/ultrsonic_prog.c:39:10:measure_distance	16	static
