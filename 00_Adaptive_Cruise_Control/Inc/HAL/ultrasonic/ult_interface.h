@@ -1,9 +1,3 @@
-/*
- * ULTRASONIC_Interface.h
- *
- *  Created on: Nov 7, 2023
- *      Author: Omar Abouzaid
- */
 
 #ifndef ULTRASONIC_INTERFACE_H_
 #define ULTRASONIC_INTERFACE_H_

@@ -1,26 +1,12 @@
-/*
- * ULTRASONIC_Program.c
- *
- *  Created on: Nov 7, 2023
- *      Author: Omar Abouzaid
- */
 
-/*Lib Layers*/
+
 #include <HAL/ultrasonic/Delay.h>
 #include <HAL/ultrasonic/ult_config.h>
 #include <HAL/ultrasonic/ult_interface.h>
 #include "../../../Inc/COMMON/std_types.h"
 #include "../../../Inc/COMMON/bit_math.h"
 
-/*MCAL Layers*/
-//#include "../inc\GPT_Interface.h"
-
 #include "../../../Inc/MCAL/gpio/gpio_interface.h"
-//#include "../inc\ULTRASONIC_private.h"
-
-
-
-
 
 
 void UltraSonic_Init(void)
